@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: Roomie
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true
+
+server:
+  port: ${SERVER_URL}
+
+client:
+  url: ${CLIENT_URL}
+
+logging:
+  config: classpath:log4j2.xml
