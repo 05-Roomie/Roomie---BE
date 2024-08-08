@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -29,8 +30,13 @@ public class Post {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "meet_place", nullable = false, length = 255)
-    private String meetPlace;
+//    @Column(name = "meet_place", nullable = false, length = 255)
+//    private String meetPlace;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "map_id", referencedColumnName = "id")
+    private Map map;
+
 
     @Column(name = "meet_time", nullable = false)
     private LocalDateTime meetTime;
@@ -39,7 +45,7 @@ public class Post {
     private Integer maxCount;
 
     @Column(name = "user_count", nullable = false)
-    private Integer userCount;
+    private Integer userCount = 0;
 
     @Column(nullable = false, length = 20)
     private String tag;
@@ -56,5 +62,8 @@ public class Post {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participant> participants;
 }
 
